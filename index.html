@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="By the Book" />
+  <meta name="theme-color" content="#0f1a0f" />
+  <title>By the Book</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash">
+    <div class="splash-inner">
+      <div class="book-icon">📖</div>
+      <h1 class="splash-title">By the Book</h1>
+      <p class="splash-sub">Your self-improvement companion</p>
+    </div>
+  </div>
+
+  <!-- ONBOARDING -->
+  <div id="onboarding" class="hidden">
+    <div class="onboard-slide active" id="slide-1">
+      <div class="onboard-emoji">🧠</div>
+      <h2>Meet Your AI Coach</h2>
+      <p>Ask anything. Log meals, plan workouts, get skincare tips — just by sending a message.</p>
+    </div>
+    <div class="onboard-slide" id="slide-2">
+      <div class="onboard-emoji">📷</div>
+      <h2>Snap to Track</h2>
+      <p>Take a photo of your food and we'll log the calories automatically. Snap a selfie for personalized skincare tips.</p>
+    </div>
+    <div class="onboard-slide" id="slide-3">
+      <div class="onboard-emoji">📖</div>
+      <h2>Live By the Book</h2>
+      <p>Workouts, meals, skincare, goals — all in one place. Your best self starts here.</p>
+      <button class="btn-primary" onclick="startApp()">Get Started</button>
+    </div>
+    <div class="onboard-dots">
+      <span class="dot active" onclick="goSlide(0)"></span>
+      <span class="dot" onclick="goSlide(1)"></span>
+      <span class="dot" onclick="goSlide(2)"></span>
+    </div>
+    <button class="onboard-next" onclick="nextSlide()" id="onboard-next-btn">Next →</button>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" class="hidden">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <span class="header-greeting" id="greeting">Good morning</span>
+        <span class="header-name" id="user-name">📖 By the Book</span>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" onclick="openProfile()">👤</button>
+      </div>
+    </header>
+
+    <!-- PAGES -->
+    <main class="app-main">
+
+      <!-- HOME PAGE -->
+      <div class="page active" id="page-home">
+        <div class="home-hero">
+          <div class="streak-card">
+            <div class="streak-num" id="streak-count">0</div>
+            <div class="streak-label">Day Streak 🔥</div>
+          </div>
+          <div class="quick-stats">
+            <div class="stat-pill" onclick="navigate('calories')">
+              <span class="stat-icon">🍽️</span>
+              <span class="stat-val" id="home-cals">0</span>
+              <span class="stat-unit">kcal</span>
+            </div>
+            <div class="stat-pill" onclick="navigate('workout')">
+              <span class="stat-icon">💪</span>
+              <span class="stat-val" id="home-workout">Rest</span>
+            </div>
+            <div class="stat-pill" onclick="navigate('skin')">
+              <span class="stat-icon">✨</span>
+              <span class="stat-val">Skin</span>
+            </div>
+          </div>
+        </div>
+
+        <section class="home-section">
+          <h3 class="section-title">Today's Focus</h3>
+          <div class="focus-cards">
+            <div class="focus-card" onclick="navigate('ai')">
+              <div class="focus-card-icon">🤖</div>
+              <div class="focus-card-text">
+                <strong>Ask your AI coach</strong>
+                <span>Chat about anything</span>
+              </div>
+              <div class="focus-card-arrow">→</div>
+            </div>
+            <div class="focus-card" onclick="navigate('calories')">
+              <div class="focus-card-icon">📷</div>
+              <div class="focus-card-text">
+                <strong>Log a meal</strong>
+                <span>Snap or type your food</span>
+              </div>
+              <div class="focus-card-arrow">→</div>
+            </div>
+            <div class="focus-card" onclick="navigate('workout')">
+              <div class="focus-card-icon">🏋️</div>
+              <div class="focus-card-text">
+                <strong>Today's workout</strong>
+                <span>View your plan</span>
+              </div>
+              <div class="focus-card-arrow">→</div>
+            </div>
+            <div class="focus-card" onclick="navigate('skin')">
+              <div class="focus-card-icon">🌿</div>
+              <div class="focus-card-text">
+                <strong>Skincare check</strong>
+                <span>AM/PM routine</span>
+              </div>
+              <div class="focus-card-arrow">→</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="home-section">
+          <h3 class="section-title">Reading List 📚</h3>
+          <div class="book-list">
+            <div class="book-item">
+              <div class="book-cover" style="background:#2d5a27">AM</div>
+              <div class="book-info">
+                <strong>Atomic Habits</strong>
+                <span>James Clear</span>
+              </div>
+              <div class="book-tag">Must Read</div>
+            </div>
+            <div class="book-item">
+              <div class="book-cover" style="background:#1a3a4a">CP</div>
+              <div class="book-info">
+                <strong>Can't Hurt Me</strong>
+                <span>David Goggins</span>
+              </div>
+              <div class="book-tag">Popular</div>
+            </div>
+            <div class="book-item">
+              <div class="book-cover" style="background:#4a2d1a">PM</div>
+              <div class="book-info">
+                <strong>The Power of Now</strong>
+                <span>Eckhart Tolle</span>
+              </div>
+              <div class="book-tag">Mindset</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- AI CHAT PAGE -->
+      <div class="page" id="page-ai">
+        <div class="page-header">
+          <h2>AI Coach 🤖</h2>
+          <p>Ask me anything about fitness, food, skincare, or your goals</p>
+        </div>
+        <div class="chat-window" id="chat-window">
+          <div class="chat-msg ai">
+            <div class="msg-bubble">Hey! I'm your By the Book coach. Ask me about workouts, meals, skincare, or anything self-improvement. I can also analyze photos — just tap the camera! 📖</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <button class="cam-btn" onclick="openCamera('ai')" title="Send a photo">📷</button>
+          <input type="text" id="chat-input" placeholder="Ask your coach..." />
+          <button class="send-btn" onclick="sendChat()">↑</button>
+        </div>
+        <input type="file" id="camera-input-ai" accept="image/*" capture="environment" class="hidden" onchange="handleCameraAI(event)" />
+      </div>
+
+      <!-- CALORIES PAGE -->
+      <div class="page" id="page-calories">
+        <div class="page-header">
+          <h2>Calorie Tracker 🍽️</h2>
+          <p>Log meals by photo or text</p>
+        </div>
+
+        <div class="cal-summary-card">
+          <div class="cal-ring-wrap">
+            <svg class="cal-ring" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="40"/>
+              <circle class="ring-fill" cx="50" cy="50" r="40" id="cal-ring-fill"/>
+            </svg>
+            <div class="cal-ring-text">
+              <span id="cals-eaten">0</span>
+              <small>/ <span id="cals-goal">2000</span> kcal</small>
+            </div>
+          </div>
+          <div class="macro-pills">
+            <div class="macro-pill">🥩 <span id="protein-g">0</span>g protein</div>
+            <div class="macro-pill">🍞 <span id="carbs-g">0</span>g carbs</div>
+            <div class="macro-pill">🧈 <span id="fat-g">0</span>g fat</div>
+          </div>
+        </div>
+
+        <div class="log-actions">
+          <button class="log-btn primary" onclick="openCamera('food')">
+            📷 Snap a Meal
+          </button>
+          <button class="log-btn" onclick="openTextLog()">
+            ✏️ Type a Meal
+          </button>
+        </div>
+
+        <div class="meal-log" id="meal-log">
+          <h3 class="section-title">Today's Meals</h3>
+          <div id="meal-list">
+            <div class="empty-state">No meals logged yet. Snap or type your first meal!</div>
+          </div>
+        </div>
+
+        <input type="file" id="camera-input-food" accept="image/*" capture="environment" class="hidden" onchange="handleCameraFood(event)" />
+      </div>
+
+      <!-- WORKOUT PAGE -->
+      <div class="page" id="page-workout">
+        <div class="page-header">
+          <h2>Workout Planner 🏋️</h2>
+          <p>AI-generated plans tailored to you</p>
+        </div>
+
+        <div id="workout-setup" class="">
+          <div class="setup-card">
+            <h3>Set Up Your Plan</h3>
+            <div class="form-group">
+              <label>Your Goal</label>
+              <div class="chip-group" id="goal-chips">
+                <div class="chip active" onclick="selectChip(this,'goal')">Build Muscle</div>
+                <div class="chip" onclick="selectChip(this,'goal')">Lose Weight</div>
+                <div class="chip" onclick="selectChip(this,'goal')">Get Active</div>
+                <div class="chip" onclick="selectChip(this,'goal')">Sport Specific</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Equipment</label>
+              <div class="chip-group" id="equip-chips">
+                <div class="chip active" onclick="selectChip(this,'equip')">Full Gym</div>
+                <div class="chip" onclick="selectChip(this,'equip')">Home</div>
+                <div class="chip" onclick="selectChip(this,'equip')">No Equipment</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Days Per Week</label>
+              <div class="chip-group" id="days-chips">
+                <div class="chip" onclick="selectChip(this,'days')">3</div>
+                <div class="chip active" onclick="selectChip(this,'days')">4</div>
+                <div class="chip" onclick="selectChip(this,'days')">5</div>
+                <div class="chip" onclick="selectChip(this,'days')">6</div>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="generateWorkout()">Generate My Plan ✨</button>
+          </div>
+        </div>
+
+        <div id="workout-plan" class="hidden">
+          <div class="plan-header">
+            <h3 id="plan-title">Your Plan</h3>
+            <button class="btn-sm" onclick="resetWorkout()">Change Plan</button>
+          </div>
+          <div id="workout-days"></div>
+        </div>
+
+        <div id="workout-loading" class="hidden">
+          <div class="loading-card">
+            <div class="spinner"></div>
+            <p>Building your perfect plan...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKINCARE PAGE -->
+      <div class="page" id="page-skin">
+        <div class="page-header">
+          <h2>Skincare ✨</h2>
+          <p>Personalized routines & AI skin analysis</p>
+        </div>
+
+        <div class="skin-actions">
+          <button class="skin-cam-btn" onclick="openCamera('skin')">
+            <span class="skin-cam-icon">📷</span>
+            <strong>Scan My Skin</strong>
+            <span>Get personalized tips from a selfie</span>
+          </button>
+        </div>
+
+        <div id="skin-setup" class="">
+          <div class="setup-card">
+            <h3>Build My Routine</h3>
+            <div class="form-group">
+              <label>Skin Type</label>
+              <div class="chip-group">
+                <div class="chip active" onclick="selectChip(this,'skintype')">Oily</div>
+                <div class="chip" onclick="selectChip(this,'skintype')">Dry</div>
+                <div class="chip" onclick="selectChip(this,'skintype')">Combination</div>
+                <div class="chip" onclick="selectChip(this,'skintype')">Sensitive</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Main Concerns</label>
+              <div class="chip-group">
+                <div class="chip active" onclick="toggleChip(this)">Acne</div>
+                <div class="chip" onclick="toggleChip(this)">Dark Spots</div>
+                <div class="chip" onclick="toggleChip(this)">Dryness</div>
+                <div class="chip" onclick="toggleChip(this)">Anti-aging</div>
+                <div class="chip" onclick="toggleChip(this)">Redness</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Budget</label>
+              <div class="chip-group">
+                <div class="chip active" onclick="selectChip(this,'budget')">Budget Friendly</div>
+                <div class="chip" onclick="selectChip(this,'budget')">Mid Range</div>
+                <div class="chip" onclick="selectChip(this,'budget')">Premium</div>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="generateSkincare()">Build My Routine ✨</button>
+          </div>
+        </div>
+
+        <div id="skin-routine" class="hidden">
+          <div class="plan-header">
+            <h3>Your Routine</h3>
+            <button class="btn-sm" onclick="resetSkin()">Rebuild</button>
+          </div>
+          <div id="skin-am" class="routine-block">
+            <h4>☀️ Morning Routine</h4>
+            <div id="skin-am-steps"></div>
+          </div>
+          <div id="skin-pm" class="routine-block">
+            <h4>🌙 Evening Routine</h4>
+            <div id="skin-pm-steps"></div>
+          </div>
+        </div>
+
+        <div id="skin-loading" class="hidden">
+          <div class="loading-card">
+            <div class="spinner"></div>
+            <p>Building your skincare routine...</p>
+          </div>
+        </div>
+
+        <input type="file" id="camera-input-skin" accept="image/*" capture="user" class="hidden" onchange="handleCameraSkin(event)" />
+      </div>
+
+      <!-- CALENDAR PAGE -->
+      <div class="page" id="page-calendar">
+        <div class="page-header">
+          <h2>Daily Planner 📅</h2>
+        </div>
+        <div class="calendar-widget">
+          <div class="cal-nav">
+            <button onclick="changeWeek(-1)">‹</button>
+            <span id="cal-week-label">This Week</span>
+            <button onclick="changeWeek(1)">›</button>
+          </div>
+          <div class="cal-days" id="cal-days"></div>
+        </div>
+        <div class="day-events">
+          <h3 class="section-title" id="selected-day-label">Today</h3>
+          <div id="day-event-list">
+            <div class="empty-state">No events today. Ask your AI coach to schedule something!</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="navigate('home')" id="nav-home">
+        <span>🏠</span><small>Home</small>
+      </button>
+      <button class="nav-btn" onclick="navigate('calories')" id="nav-calories">
+        <span>🍽️</span><small>Calories</small>
+      </button>
+      <button class="nav-btn nav-ai" onclick="navigate('ai')" id="nav-ai">
+        <span>🤖</span><small>Coach</small>
+      </button>
+      <button class="nav-btn" onclick="navigate('workout')" id="nav-workout">
+        <span>💪</span><small>Workout</small>
+      </button>
+      <button class="nav-btn" onclick="navigate('calendar')" id="nav-calendar">
+        <span>📅</span><small>Planner</small>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- MODALS -->
+  <div class="modal-overlay hidden" id="text-log-modal">
+    <div class="modal">
+      <h3>Log a Meal ✏️</h3>
+      <p>Describe what you ate naturally</p>
+      <textarea id="meal-text-input" placeholder="e.g. grilled chicken breast with rice and broccoli..."></textarea>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeTextLog()">Cancel</button>
+        <button class="btn-primary" onclick="logMealText()">Log Meal</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="profile-modal">
+    <div class="modal">
+      <h3>Your Profile 👤</h3>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="profile-name" placeholder="Your name" />
+      </div>
+      <div class="form-group">
+        <label>Daily Calorie Goal</label>
+        <input type="number" id="profile-cals" placeholder="2000" />
+      </div>
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" id="profile-age" placeholder="18" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeProfile()">Cancel</button>
+        <button class="btn-primary" onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="image-result-modal">
+    <div class="modal">
+      <h3 id="img-modal-title">Analyzing...</h3>
+      <div class="img-preview-wrap">
+        <img id="img-preview" src="" alt="preview" />
+      </div>
+      <div class="ai-result" id="img-ai-result">
+        <div class="spinner"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="closeImageModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
